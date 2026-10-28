@@ -1,4 +1,4 @@
-
+//src\data\events.ts
 import type { EventItem } from "@/types/site";
 
 export const events: EventItem[] = [

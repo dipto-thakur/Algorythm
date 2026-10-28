@@ -18,7 +18,7 @@ const env = z
 
 export const siteConfig = {
   name: "ALGORYTHM'26",
-  subtext: "A Computer Science departmental event - hosting hackathon, design, presentation, quiz and cultural program" as string | null,
+subtext: "Hackathons, design battles, quizzes, presentations & culture — all in one CS department event.",
   brand: "VC",
   tagline: "kya hai ALGORYTHM?",
   description:
@@ -71,7 +71,7 @@ schedule: {
   social: [] as { label: string; href: string }[], // none supplied
   footer: { text: null as string | null, legalLinks: [] as { label: string; href: string }[] },
    imagekitEndpoint: env.imagekitEndpoint ?? null,
-  features: { scene: true, reveal: true, eventPages: false },
+  features: { scene: true, reveal: true, eventPages: true },
 } as const;
 
 export const siteAssets = {

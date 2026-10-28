@@ -17,3 +17,15 @@ export type ScheduleItem = { time: string; title: string };
 export type FaqItem = { id: string; question: string; answer: string | null };
 export type EventItem = { slug: string; name: string; kind: string; blurb: string };
 export type Credit = { name: string; subtext: string };
+export type EventDetails = {
+  tagline?: string;
+  about?: string[];
+  /** Drive share URL */
+  poster?: string;
+  /** Drive share URL */
+  brochure?: string;
+  team?: { size?: string; eligibility?: string[]; notes?: string[] };
+  prizes?: { place: string; reward: string }[];
+  rules?: string[];
+  contacts?: { name: string; role?: string; phone?: string }[];
+};

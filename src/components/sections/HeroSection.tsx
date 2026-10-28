@@ -79,7 +79,7 @@ export function HeroSection({ registeredCount }: { registeredCount: number | nul
 
         <motion.p
   variants={sub}
-  className="mt-4 max-w-[34rem] text-balance text-sm leading-6 text-white/85 drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] sm:mt-6 sm:text-base sm:leading-7 lg:text-lg"
+  className="mx-auto mt-3 w-full max-w-[min(90vw,36rem)] px-3 text-center text-xs leading-5 text-white/80 drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] sm:mt-5 sm:max-w-[min(85vw,42rem)] sm:px-0 sm:text-base sm:leading-7 lg:max-w-[48rem] lg:text-lg lg:leading-8"
 >
   {siteConfig.subtext}
 </motion.p>
