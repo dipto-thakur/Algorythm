@@ -17,14 +17,15 @@ const env = z
   });
 
 export const siteConfig = {
-  name: "ALGORYTHM",
+  name: "ALGORYTHM'26",
+  subtext: "A Computer Science department event, hosting hackathon, design, presentation, quiz and culture." as string | null,
   brand: "VC",
   tagline: "kya hai ALGORYTHM?",
   description:
     "ALGORYTHM demystifies hackathons, cohorts, and meetups, helping you navigate the world of tech & marketing events.",
-college: {
-  name: "VIVEKANANDA COLLEGE",    // e.g. "Your College Name"
-  address: "THAKURPUKUR KOLKATA", // e.g. "Street, City, State"
+  college: {
+  name: "VIVEKANANDA COLLEGE",    
+  address: "Thakurpukur, Kolkata - 700063", 
 },
 contact: {
   phone: "+918583096581",    // display format, e.g. "+91 98765 43210"
@@ -37,29 +38,29 @@ credits: {
   associations: [{ name: "Faculties, Alumini, Students", subtext: "Department of Computer Science" }] as Credit[],
 },
 event: {
-  venue: "Aeronautical Auditorium", // update to the real venue
-  venueMapUrl: null as string | null, // paste Google Maps share link
+  venue: "269, Diamond Harbour Road, Thakurpukur, Kolkata - 700063",
+  venueMapUrl: "https://share.google/G5HFoaWDsXhDEIrte", 
   dateLabel: "1st week of December",
   dateStatus: "tentative" as "confirmed" | "tentative",
   dateNote: "Exact date will be informed" as string | null,
   timeLabel: null as string | null,
   timeZone: null as string | null,
-dateInfo: "Tentative for now. The exact date and time will be informed." as string | null,
-venueInfo: null as string | null, // falls back to college.address
+  dateInfo: "Tentative for now. The exact date and time will be informed." as string | null,
+  venueInfo: null as string | null, // falls back to college.address
 },
 registration: {
   deadlineLabel: "20th November",
   deadlineISO: "2026-11-20T23:59:59+05:30",
   registeredCount: 3, // e.g. 128; null hides the corner badge
   info: "Registrations close on 20th November. Register before the countdown hits zero." as string | null,
+  baseCount: 3,
 },
 schedule: {
   draftTitle: "Working on it",
   draftNote: "Date abhi tentative hai, toh schedule bhi. Final hote hi yahin aa jayega. Thoda sabr, phir full dhamaal.",
 },
   siteUrl: env.siteUrl ?? null,
-  cta: { label: "Register now", href: env.registerUrl ?? null },
-  // Items with href: null are hidden (the design has a "team" link but no team section on the homepage).
+  cta: { label: "Register now", href: env.registerUrl ?? "/register" },
   navigation: [
     { label: "about", href: "#about" },
     { label: "events", href: "#events" },

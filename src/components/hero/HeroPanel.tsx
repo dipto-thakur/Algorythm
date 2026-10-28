@@ -29,18 +29,13 @@ const panel: Variants = {
   },
 };
 
-export function HeroPanel() {
-  const reduce = useReducedMotion();
-  const count = registration.registeredCount;
-
+export function HeroPanel({ registeredCount }: { registeredCount: number | null }) {
+    const reduce = useReducedMotion();
+    const count = registeredCount; // replaces: registration.registeredCount
   return (
     <div className="relative z-10 w-full max-w-xl">
-      {count !== null && (
-        <RegisteredBadge
-          count={count}
-          className="absolute -top-4 right-5 z-20"
-        />
-      )}
+
+       {count !== null && count > 0 && <RegisteredBadge count={count} className="absolute -top-4 right-5 z-20" />}
 
       <motion.div
         variants={panel}

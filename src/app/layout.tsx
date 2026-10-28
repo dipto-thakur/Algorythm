@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { Navbar } from "@/components/layout/Navbar";
 
 const mono = Martian_Mono({ subsets: ["latin"], axes: ["wdth"], variable: "--font-martian", display: "swap" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-grotesk", display: "swap" });
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        <Navbar />
         {children}
         </Providers>
       </body>

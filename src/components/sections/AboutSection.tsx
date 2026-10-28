@@ -19,7 +19,7 @@ export function AboutSection() {
             <span className="text-orange">{"{`"}</span>
             Computer Science department ka ek event, jisme ek hackathon, ek design battle, ek presentation, ek quiz aur
             thoda culture sab ek saath hai. Kyunki hum CS wale sirf coding nahi karte (aur sirf ChatGPT se copy
-            bhi nahi karte. Mostly). Hum bhi abhi seekh hi rahe hain, toh saath mein seekhte hain. Certificates milenge,
+            bhi nahi karte. Mostly). Certificates milenge,
             toh LinkedIn pe daalne ka bahana pakka. 😁
             <span className="text-orange">{"`}"}</span>
           </p>
