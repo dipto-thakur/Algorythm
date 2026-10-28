@@ -1,12 +1,11 @@
 import { z } from "zod";
 import { commonFields, eventForms } from "@/data/registration-forms";
-import type { Field, Values } from "./fields";
+import { isVisible, type Field, type Values } from "./fields";
 import { cleanText, isIndianMobile, normalizePhone } from "./sanitize";
 
 const req = (l: string) => `${l} is required`;
 
-export function fieldSchema(f: Field): z.ZodType {
-  const required = !!f.required;
+export function fieldSchema(f: Field, required = !!f.required): z.ZodType {
   switch (f.type) {
     case "text":
     case "textarea": {
@@ -50,49 +49,46 @@ export function fieldSchema(f: Field): z.ZodType {
   }
 }
 
-export const buildSchema = (fields: readonly Field[]) =>
-  z.object(Object.fromEntries(fields.map((f) => [f.name, fieldSchema(f)])));
-
-const commonSchema = buildSchema(commonFields);
-const eventSchemas = Object.fromEntries(Object.entries(eventForms).map(([slug, f]) => [slug, buildSchema(f.fields)]));
-
 export type Errors = Record<string, string>;
 
-/** Client helper: first error message per field name (with optional key prefix). */
-export function validateFields(fields: readonly Field[], values: Values, prefix = ""): Errors {
-  const out: Errors = {};
+/** Validates + cleans a list of fields. Hidden (showIf) fields are skipped and dropped from the output. */
+export function parseFields(fields: readonly Field[], input: unknown, prefix = "") {
+  const src = (input && typeof input === "object" ? input : {}) as Record<string, unknown>;
+  const data: Record<string, unknown> = {};
+  const errors: Errors = {};
   for (const f of fields) {
-    const r = fieldSchema(f).safeParse(values[f.name]);
-    if (!r.success) out[prefix + f.name] = r.error.issues[0]?.message ?? "Invalid value";
+    if (!isVisible(f, src)) continue;
+    const r = fieldSchema(f).safeParse(src[f.name]);
+    if (r.success) data[f.name] = r.data;
+    else errors[prefix + f.name] = r.error.issues[0]?.message ?? "Invalid value";
   }
-  return out;
+  return { data, errors };
 }
 
-const collect = (err: z.ZodError, prefix: string, into: Errors) => {
-  for (const i of err.issues) into[prefix + String(i.path[0] ?? "")] ??= i.message;
-};
+/** Client helper. */
+export const validateFields = (fields: readonly Field[], values: Values, prefix = ""): Errors =>
+  parseFields(fields, values, prefix).errors;
 
-/** Server-side authority. Unknown keys are dropped; each selected event is validated against its own schema. */
+/** Server-side authority. Each selected event is validated against its own field list. */
 export function validateRegistration(raw: { common: unknown; entries: unknown }) {
-  const errors: Errors = {};
-  const c = commonSchema.safeParse(raw.common);
-  if (!c.success) collect(c.error, "", errors);
-
+  const common = parseFields(commonFields, raw.common);
+  const errors: Errors = { ...common.errors };
   const entries: Record<string, Record<string, unknown>> = {};
-  if (c.success) {
+
+  if (!Object.keys(errors).length) {
     const given = (raw.entries && typeof raw.entries === "object" ? raw.entries : {}) as Record<string, unknown>;
-    for (const slug of c.data.events as string[]) {
-      const schema = eventSchemas[slug];
-      if (!schema) {
+    for (const slug of common.data.events as string[]) {
+      const form = eventForms[slug];
+      if (!form) {
         errors.events = "Unknown event";
         continue;
       }
-      const r = schema.safeParse(given[slug] ?? {});
-      if (r.success) entries[slug] = r.data as Record<string, unknown>;
-      else collect(r.error, `${slug}.`, errors);
+      const r = parseFields(form.fields, given[slug], `${slug}.`);
+      Object.assign(errors, r.errors);
+      entries[slug] = r.data;
     }
   }
 
-  if (!c.success || Object.keys(errors).length) return { ok: false as const, errors };
-  return { ok: true as const, common: c.data as Record<string, unknown>, entries };
+  if (Object.keys(errors).length) return { ok: false as const, errors };
+  return { ok: true as const, common: common.data, entries };
 }

@@ -1,46 +1,67 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useRegistrationClosed } from "@/lib/useNow";
-import { rise } from "./variants";
+import { ease } from "./variants";
 
 const { cta } = siteConfig;
-const base = "relative flex min-h-[4.25rem] w-full items-center justify-center gap-2 rounded-3xl px-10 text-lg font-bold";
+
+const base =
+  "group relative flex min-h-[4.25rem] w-full items-center justify-center gap-2.5 rounded-2xl border px-8 text-base font-semibold tracking-tight transition-[background-color,border-color,box-shadow,color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:text-lg";
+
+const entrance: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease,
+      delay: 0.3,
+    },
+  },
+};
 
 export function RegisterCta() {
   const reduce = useReducedMotion();
   const closed = useRegistrationClosed();
-  const enabled = !!cta.href && !closed;
+  const enabled = Boolean(cta.href) && !closed;
 
   return (
-    <motion.div variants={rise} className="mt-8 flex flex-col items-center gap-3">
+    <motion.div
+      variants={entrance}
+      initial={reduce ? false : "hidden"}
+      animate="show"
+      className="mt-5 flex flex-col items-center gap-3 sm:mt-6"
+    >
       {enabled ? (
-        <motion.a
-          href={cta.href ?? undefined}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-          className={`${base} relative gap-2 bg-white text-black shadow-[0_0_44px_-4px_rgba(255,255,255,0.45)]`}
+        <a
+          href={cta.href!}
+          className={`${base} border-white/70 bg-white text-black shadow-[0_8px_32px_-16px_rgba(255,255,255,0.35)] hover:border-white hover:bg-white/90 hover:shadow-[0_12px_36px_-16px_rgba(255,255,255,0.45)] active:bg-white/80`}
         >
-          {!reduce && (
-            <motion.span
-              aria-hidden
-              className="absolute inset-0 rounded-full border border-white"
-              animate={{ scale: [1, 1.2], opacity: [0.6, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
-            />
-          )}
-          <span className="relative">{cta.label}</span>
-          <ArrowUpRight aria-hidden className="relative size-5" />
-        </motion.a>
+          <span>{cta.label}</span>
+          <ArrowUpRight
+            aria-hidden="true"
+            className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:size-[18px]"
+          />
+        </a>
       ) : (
-        <span role="link" aria-disabled="true" className={`${base} cursor-not-allowed border border-white/40 bg-white/10 text-white/70`}>
+        <span
+          aria-disabled="true"
+          className={`${base} cursor-not-allowed border-white/10 bg-white/[0.06] text-white/45 backdrop-blur-xl`}
+        >
           {closed ? "Registrations closed" : cta.label}
         </span>
       )}
-      {!closed && !cta.href && <p className="text-sm text-white/80">Registration link coming soon</p>}
+
+      {!closed && !cta.href && (
+        <p className="text-sm text-white/50">
+          Registration link coming soon
+        </p>
+      )}
     </motion.div>
   );
 }

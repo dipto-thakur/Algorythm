@@ -36,7 +36,7 @@ export function FieldRenderer({ field: f, id, value, error, onChange, onBlur }: 
 
   if (f.type === "radio" || f.type === "checkbox") {
     const multi = f.type === "checkbox";
-    const stack = f.options.some((o) => o.hint || o.label.length > 16);
+    const stack = f.layout ? f.layout === "stack" : f.options.some((o) => o.hint || o.label.length > 16);
     const selected = (v: string) => (multi ? (value as string[]).includes(v) : value === v);
     const toggle = (v: string) =>
       multi ? onChange(selected(v) ? (value as string[]).filter((x) => x !== v) : [...(value as string[]), v]) : onChange(v);

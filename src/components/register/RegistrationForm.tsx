@@ -6,7 +6,6 @@ import { useRef, useState, useSyncExternalStore } from "react";
 import { submitRegistration } from "@/app/register/actions";
 import { events } from "@/data/events";
 import { commonFields, eventForms } from "@/data/registration-forms";
-import { emptyValues, type Field, type Values } from "@/lib/registration/fields";
 import { fieldSchema, validateFields, type Errors } from "@/lib/registration/schema";
 import { useDraft } from "@/lib/registration/useDraft";
 import { useReducedMotion } from "@/lib/useReducedMotion";
@@ -14,6 +13,7 @@ import { useRegistrationClosed } from "@/lib/useNow";
 import { FieldRenderer } from "./FieldRenderer";
 import { ReviewStep } from "./ReviewStep";
 import { SuccessCard, type Done } from "./SuccessCard";
+import { emptyValues, isVisible, type Field, type Values } from "@/lib/registration/fields";
 
 type Draft = { step: number; common: Values; entries: Record<string, Values>; submissionId: string };
 const initial: Draft = { step: 0, common: emptyValues(commonFields), entries: {}, submissionId: "" };
@@ -151,12 +151,26 @@ export function RegistrationForm() {
     }
   };
 
-  const renderFields = (fields: Field[], values: Values, scope: string, set: (name: string, v: string | string[]) => void) => (
+  const renderFields = (
+    fields: Field[],
+    values: Values,
+    scope: string,
+    set: (name: string, v: string | string[]) => void,
+  ) => (
     <div className="grid gap-6 sm:grid-cols-2">
       {fields.map((f) => {
+        if (!isVisible(f, values)) return null;
+  
         const key = scope + f.name;
+  
         return (
-          <div key={key} className={half(f) ? undefined : "sm:col-span-2"}>
+          <motion.div
+            key={key}
+            initial={f.showIf && !reduce ? { opacity: 0, y: 8 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className={half(f) ? undefined : "sm:col-span-2"}
+          >
             <FieldRenderer
               field={f}
               id={fid(key)}
@@ -168,7 +182,7 @@ export function RegistrationForm() {
               }}
               onBlur={() => check(key, f, values[f.name] ?? "")}
             />
-          </div>
+          </motion.div>
         );
       })}
     </div>

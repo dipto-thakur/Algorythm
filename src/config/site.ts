@@ -18,11 +18,11 @@ const env = z
 
 export const siteConfig = {
   name: "ALGORYTHM'26",
-  subtext: "A Computer Science department event, hosting hackathon, design, presentation, quiz and culture." as string | null,
+  subtext: "A Computer Science departmental event - hosting hackathon, design, presentation, quiz and cultural program" as string | null,
   brand: "VC",
   tagline: "kya hai ALGORYTHM?",
   description:
-    "ALGORYTHM demystifies hackathons, cohorts, and meetups, helping you navigate the world of tech & marketing events.",
+    "ALGORYTHM'26 - A Computer Science departmental event - hosting hackathon, design, presentation, quiz and cultural program",
   college: {
   name: "VIVEKANANDA COLLEGE",    
   address: "Thakurpukur, Kolkata - 700063", 

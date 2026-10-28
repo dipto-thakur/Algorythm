@@ -2,7 +2,8 @@
 
 import { commonFields, eventForms } from "@/data/registration-forms";
 import { events } from "@/data/events";
-import { displayValue, type Field, type Values } from "@/lib/registration/fields";
+import { displayValue, isVisible, type Field, type Values } from "@/lib/registration/fields";
+
 
 type Props = {
   common: Values;
@@ -21,8 +22,8 @@ function Section({ title, fields, values, onEdit }: { title: string; fields: Fie
         </button>
       </div>
       <dl className="mt-1 divide-y divide-white/10">
-        {fields.map((f) => (
-          <div key={f.name} className="flex flex-col gap-0.5 py-3 sm:flex-row sm:gap-6">
+      {fields.filter((f) => isVisible(f, values)).map((f) => (
+            <div key={f.name} className="flex flex-col gap-0.5 py-3 sm:flex-row sm:gap-6">
             <dt className="text-sm text-white/60 sm:w-52 sm:shrink-0">{f.label}</dt>
             <dd className="min-w-0 whitespace-pre-line break-words text-sm font-medium">{displayValue(f, values[f.name])}</dd>
           </div>

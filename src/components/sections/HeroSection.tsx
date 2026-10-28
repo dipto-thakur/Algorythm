@@ -25,8 +25,6 @@ export function HeroSection({ registeredCount }: { registeredCount: number | nul
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "16%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.04, 1.14]);
   const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
   const titleOpacity = useTransform(scrollYProgress, [0.05, 0.6], [1, 0]);
   const mx = useMotionValue(50);
@@ -45,9 +43,9 @@ export function HeroSection({ registeredCount }: { registeredCount: number | nul
       }}
       className="relative flex min-h-svh flex-col items-center gap-6 overflow-hidden border-b border-dashed border-line px-3 pb-8 pt-24 sm:gap-8 sm:px-6 sm:pt-28"
     >
-      <motion.div aria-hidden className="absolute inset-0" style={reduce ? undefined : { y: bgY, scale: bgScale }}>
-        <SmartImage asset={siteAssets.hero} fill priority sizes="100vw" className="object-cover" />
-      </motion.div>
+     <div aria-hidden className="absolute inset-0">
+  <SmartImage asset={siteAssets.hero} fill priority sizes="100vw" className="object-cover" />
+</div>
       <div aria-hidden className="absolute inset-0 bg-[rgba(37,177,255,0.88)] mix-blend-soft-light" />
       <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_38%,rgba(0,0,0,0.5),transparent)]" />
       <div aria-hidden className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 to-transparent" />
@@ -79,12 +77,12 @@ export function HeroSection({ registeredCount }: { registeredCount: number | nul
           ))}
         </motion.h1>
 
-          <motion.p
-            variants={sub}
-            className="mt-5  text-balance text-base leading-7 text-white/85 drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] sm:mt-6 sm:text-lg"
-          >
-            {siteConfig.subtext}
-          </motion.p>
+        <motion.p
+  variants={sub}
+  className="mt-4 max-w-[34rem] text-balance text-sm leading-6 text-white/85 drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] sm:mt-6 sm:text-base sm:leading-7 lg:text-lg"
+>
+  {siteConfig.subtext}
+</motion.p>
         
       </motion.div>
 
