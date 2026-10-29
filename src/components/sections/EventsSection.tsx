@@ -16,7 +16,7 @@ export function EventsSection() {
   return (
     <section id="events" aria-labelledby="events-title" className="rail-bounded">
       <Reveal>
-        <SectionHeading id="events-title" label={`${String(events.length).padStart(2, "0")} Events`} title="paanch events, ek ALGORYTHM" color="green" />
+        <SectionHeading id="events-title" label={`${String(events.length).padStart(2, "0")} Events`} title="Five Events. One ALGORYTHM." color="green" />
       </Reveal>
       <ol className="mt-12 border-t border-dashed border-line">
         {events.map((e, i) => {

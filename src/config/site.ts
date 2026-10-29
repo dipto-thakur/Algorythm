@@ -89,7 +89,7 @@ collegeLogo: { src: "/college-logo.png", alt: "College logo", width: 72, height:
     alt: "Cluster of developer technology logos",
     width: 470,
     height: 410,
-    decorative: true,
+    decorative: false,
     
   },
 } as const satisfies Record<string, ImageAsset>;

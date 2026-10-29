@@ -19,6 +19,7 @@ export type EventItem = { slug: string; name: string; kind: string; blurb: strin
 export type Credit = { name: string; subtext: string };
 export type EventDetails = {
   tagline?: string;
+  whatsappGroup?: string;
   about?: string[];
   /** Drive share URL */
   poster?: string;

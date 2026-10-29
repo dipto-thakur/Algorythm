@@ -3,6 +3,16 @@ import type { Field } from "@/lib/registration/fields";
 
 const semesters = Array.from({ length: 8 }, (_, i) => ({ value: String(i + 1), label: String(i + 1) }));
 
+/** Leader + second participant. Pass a showIf to make the whole set conditional. */
+const pair = (showIf?: Field["showIf"]): Field[] => [
+  { name: "leaderName", type: "text", label: "Team leader's name", required: true, prefill: "name", showIf },
+  { name: "leaderWhatsapp", type: "tel", label: "Team leader's WhatsApp no.", required: true, prefill: "whatsapp", showIf },
+  { name: "leaderContact", type: "tel", label: "Team leader's contact no.", prefill: "calling", showIf },
+  { name: "partnerName", type: "text", label: "Second participant's name", required: true, showIf },
+  { name: "partnerWhatsapp", type: "tel", label: "Second participant's WhatsApp no.", required: true, showIf },
+  { name: "partnerContact", type: "tel", label: "Second participant's contact no.", showIf },
+];
+
 export const commonFields: Field[] = [
   { name: "name", type: "text", label: "Name", required: true, autoComplete: "name" },
   { name: "email", type: "email", label: "Email", help: "Optional." },
@@ -65,8 +75,25 @@ export const eventForms: Record<string, { intro?: string; fields: Field[] }> = {
     ],
   },
   canvaclash: { fields: [] },
-  technovate: { fields: [] },
-  quizstack: { fields: [] },
+  technovate: {
+    fields: [
+      {
+        name: "format",
+        type: "radio",
+        label: "Team size preference",
+        required: true,
+        options: [
+          { value: "solo", label: "Solo" },
+          { value: "duo", label: "Duo" },
+        ],
+      },
+      ...pair({ field: "format", equals: "duo" }),
+    ],
+  },
+  quizstack: {
+    intro: "QuizStack is played in pairs. Add both participants' details.",
+    fields: pair(),
+  },
   nabasrijan: {
     fields: [
       {

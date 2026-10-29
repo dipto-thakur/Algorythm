@@ -135,8 +135,14 @@ export function RegistrationForm() {
       const res = await submitRegistration({ submissionId: id, hp: hp.current?.value ?? "", common: d.common, entries: d.entries });
       if (res.ok) {
         clear();
-        setDone({ name: String(d.common.name), whatsapp: String(d.common.whatsapp), eventNames: selected.map(eventName) });
-        return;
+
+        setDone({
+          name: String(d.common.name),
+          whatsapp: String(d.common.whatsapp),
+          eventNames: selected.map(eventName),
+          groups: res.groups,
+        });
+                return;
       }
       if (res.code === "invalid" && res.fieldErrors) {
         setErrors(res.fieldErrors);
@@ -272,6 +278,8 @@ export function RegistrationForm() {
                             {events.find((e) => e.slug === s)?.kind}
                           </span>
                         </h3>
+                        {eventForms[s]?.intro && <p className="-mt-2 mb-5 text-sm leading-6 text-white/70">{eventForms[s]?.intro}</p>}
+                        
                         {renderFields(fieldsOf(s), d.entries[s] ?? {}, `${s}.`, (n2, v) => setEntry(s, n2, v))}
                       </section>
                     ))}
