@@ -25,7 +25,7 @@ subtext: "Hackathons, design battles, quizzes, presentations & culture — all i
     "ALGORYTHM'26 - A Computer Science departmental event - hosting hackathon, design, presentation, quiz and cultural program",
   college: {
   name: "VIVEKANANDA COLLEGE",    
-  address: "Thakurpukur, Kolkata - 700063", 
+  address: "Thakurpukur, Kolkata", 
 },
 contact: {
   phone: "+918583096581",    // display format, e.g. "+91 98765 43210"
@@ -38,7 +38,7 @@ credits: {
   associations: [{ name: "Faculties, Alumini, Students", subtext: "Department of Computer Science" }] as Credit[],
 },
 event: {
-  venue: "269, Diamond Harbour Road, Thakurpukur, Kolkata - 700063",
+  venue: "VIVEKANANDA COLLEGE, Thakurpukur, Kolkata 700063",
   venueMapUrl: "https://share.google/G5HFoaWDsXhDEIrte", 
   dateLabel: "1st week of December",
   dateStatus: "tentative" as "confirmed" | "tentative",

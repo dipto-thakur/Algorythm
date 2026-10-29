@@ -56,6 +56,7 @@ export function Navbar() {
     };
   }, [isHome]);
 
+  if (pathname === "/poster") return null;
   const activeHref = isHome ? active : null;
   const hrefFor = (h: string) => (isHome ? h : `/${h}`); // "#about" works on / ; "/#about" from other pages
   const showCta = !!cta.href && pathname !== "/register";

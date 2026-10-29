@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Download, ExternalLink, MapPin, CalendarDays, Phone } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { events } from "@/data/events";
 import { eventDetails } from "@/data/event-details";
@@ -9,6 +8,10 @@ import { driveLinks } from "@/lib/drive";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EventRegisterCta } from "@/components/events/EventRegisterCta";
+import { ArrowLeft, ArrowRight, CalendarDays, Download, ExternalLink, FileText, Image as ImageIcon, MapPin, Phone, Timer } from "lucide-react";
+import { telHref } from "@/lib/contact";
+import { cn } from "@/lib/utils";
+
 
 type Params = { slug: string };
 
@@ -48,6 +51,11 @@ function Block({
   );
 }
 
+const label = "flex items-center gap-2 text-xs uppercase tracking-wide text-muted";
+const btn =
+  "inline-flex min-h-11 items-center gap-2 border border-dashed border-line px-4 text-sm text-white/90 transition-colors hover:border-orange hover:text-orange";
+const cell = "border-r border-b border-dashed border-line p-5";
+
 export default async function EventPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const e = events.find((x) => x.slug === slug);
@@ -69,128 +77,79 @@ export default async function EventPage({ params }: { params: Promise<Params> })
   return (
     <main id="main" className="page-rails pb-24 pt-28">
       <div className="rail-bounded">
-        <Link
-          href="/#events"
-          className="inline-flex items-center gap-2 px-5 text-sm text-white/60 transition-colors hover:text-orange"
-        >
+        <Link href="/#events" className="inline-flex min-h-11 items-center gap-2 px-5 text-sm text-white/60 transition-colors hover:text-orange">
           <ArrowLeft aria-hidden className="size-4" /> All events
         </Link>
 
-        <Reveal className="mt-6">
+        <Reveal className="mt-4">
           <SectionHeading label={e.kind} title={e.name} color="orange" align="left" />
-          <div className="px-5 pt-6">
-            <p className="max-w-2xl text-base leading-7 text-white/80">{d.tagline ?? e.blurb}</p>
-
-            <dl className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-dashed border-line p-4">
-                <dt className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted">
-                  <CalendarDays aria-hidden className="size-4" /> Date
-                </dt>
-                <dd className="mt-2 text-sm text-white/90">
-                  {event.dateLabel}
-                  {event.dateStatus === "tentative" && <span className="ml-2 text-orange">(tentative)</span>}
-                  {event.timeLabel && <span className="block text-white/60">{event.timeLabel}</span>}
-                  {event.dateNote && <span className="block text-white/60">{event.dateNote}</span>}
-                </dd>
-              </div>
-              <div className="rounded-2xl border border-dashed border-line p-4">
-                <dt className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted">
-                  <MapPin aria-hidden className="size-4" /> Venue
-                </dt>
-                <dd className="mt-2 text-sm text-white/90">
-                  {siteConfig.college.name}
-                  <span className="block text-white/60">{event.venue}</span>
-                  {event.venueMapUrl && (
-                    <a
-                      href={event.venueMapUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 inline-flex items-center gap-1 text-blue hover:underline"
-                    >
-                      Open map <ExternalLink aria-hidden className="size-3.5" />
-                    </a>
-                  )}
-                </dd>
-              </div>
-            </dl>
-
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <EventRegisterCta />
-              <p className="text-sm text-white/60">
-                Register by {siteConfig.registration.deadlineLabel}
-              </p>
-            </div>
-          </div>
+          <p className="max-w-2xl px-5 pt-6 text-base leading-7 text-white/80">{d.tagline ?? e.blurb}</p>
         </Reveal>
 
         {!hasAny && (
           <Reveal className="mt-14">
-            <p className="mx-5 rounded-2xl border border-dashed border-line p-6 text-sm text-white/70">
-              Full details for {e.name} are on the way. Check back soon.
-            </p>
+            <p className="mx-5 border border-dashed border-line p-6 text-sm text-white/70">Full details for {e.name} are on the way. Check back soon.</p>
           </Reveal>
         )}
 
-        {(d.about?.length || poster) && (
+        {d.about?.length ? (
           <Block label="About" title={`What is ${e.name}?`} color="blue">
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-              {d.about?.length ? (
-                <div className="space-y-4 text-sm leading-7 text-white/80">
-                  {d.about.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </div>
-              ) : (
-                <div />
-              )}
-              {poster && (
-                <div className="overflow-hidden rounded-2xl border border-dashed border-line">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={poster.image} alt={`${e.name} poster`} loading="lazy" className="h-auto w-full" />
-                </div>
-              )}
+            <div className="w-auto space-y-4 text-sm leading-7 text-white/80">
+              {d.about.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
           </Block>
-        )}
+        ) : null}
 
-        {brochure && (
-          <Block label="Brochure" title="Everything in one PDF" color="orange">
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={brochure.view}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-sm text-white/90 transition-colors hover:border-orange hover:text-orange"
-              >
-                <ExternalLink aria-hidden className="size-4" /> Open
-              </a>
-              <a
-                href={brochure.download}
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-sm text-white/90 transition-colors hover:border-orange hover:text-orange"
-              >
-                <Download aria-hidden className="size-4" /> Download
-              </a>
-            </div>
-            <iframe
-              src={brochure.preview}
-              title={`${e.name} brochure`}
-              loading="lazy"
-              className="mt-5 h-[70vh] w-full rounded-2xl border border-dashed border-line bg-black"
-            />
+        {(poster || brochure) && (
+          <Block label="Resources" title="Poster & brochure" color="orange">
+            <ul className="divide-y divide-dashed divide-line ">
+              {poster && (
+                <li className="flex flex-wrap items-center justify-between gap-3 py-4">
+                  <span className="flex items-center gap-3 text-sm text-white/90">
+                    <ImageIcon aria-hidden className="size-4 text-orange" /> {e.name} poster
+                  </span>
+                  <span className="flex gap-2">
+                    <a href={poster.image} target="_blank" rel="noopener noreferrer" className={btn}>
+                      <ExternalLink aria-hidden className="size-4" /> Open
+                    </a>
+                    <a href={poster.image} download className={btn}>
+                      <Download aria-hidden className="size-4" /> Download
+                    </a>
+                  </span>
+                </li>
+              )}
+              {brochure && (
+                <li className="flex flex-wrap items-center justify-between gap-3 py-4">
+                  <span className="flex items-center gap-3 text-sm text-white/90">
+                    <FileText aria-hidden className="size-4 text-orange" /> {e.name} brochure (PDF)
+                  </span>
+                  <span className="flex gap-2">
+                    <a href={brochure.view} target="_blank" rel="noopener noreferrer" className={btn}>
+                      <ExternalLink aria-hidden className="size-4" /> Open
+                    </a>
+                    <a href={brochure.download} className={btn}>
+                      <Download aria-hidden className="size-4" /> Download
+                    </a>
+                  </span>
+                </li>
+              )}
+            </ul>
           </Block>
         )}
 
         {d.team && (
           <Block label="Team" title="Team criteria" color="green">
-            <div className="space-y-5 text-sm leading-7 text-white/80">
+            <div className="w-auto text-sm leading-7 text-white/80">
               {d.team.size && (
-                <p>
-                  <span className="text-muted">Team size: </span>
-                  {d.team.size}
+                <p className="flex gap-3 py-4">
+                  <span className="w-28 shrink-0 text-muted">Team size</span>
+                  <span className="font-bold text-white">{d.team.size}</span>
                 </p>
               )}
               {d.team.eligibility?.length ? (
-                <div>
+                <div className="py-4">
                   <p className="text-xs uppercase tracking-wide text-muted">Eligibility</p>
                   <ul className="mt-2 list-disc space-y-1 pl-5 marker:text-green">
                     {d.team.eligibility.map((x, i) => (
@@ -212,11 +171,11 @@ export default async function EventPage({ params }: { params: Promise<Params> })
 
         {d.prizes?.length ? (
           <Block label="Prizes" title="What you win" color="orange">
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid border-l border-t border-dashed border-line sm:grid-cols-2 lg:grid-cols-3">
               {d.prizes.map((p, i) => (
-                <li key={i} className="rounded-2xl border border-dashed border-line p-4">
+                <li key={i} className={cell}>
                   <p className="text-xs uppercase tracking-wide text-orange">{p.place}</p>
-                  <p className="mt-2 text-sm text-white/90">{p.reward}</p>
+                  <p className="mt-2 font-sans text-lg font-bold text-white/90">{p.reward}</p>
                 </li>
               ))}
             </ul>
@@ -225,10 +184,10 @@ export default async function EventPage({ params }: { params: Promise<Params> })
 
         {d.rules?.length ? (
           <Block label="Rules" title="Ground rules" color="blue">
-            <ol className="space-y-3 text-sm leading-7 text-white/80">
+            <ol className="">
               {d.rules.map((r, i) => (
-                <li key={i} className="flex gap-4">
-                  <span className="pt-0.5 font-medium text-blue">{String(i + 1).padStart(2, "0")}</span>
+                <li key={i} className="flex gap-4 py-4 text-sm  text-white/80">
+                  <span className="w-6 shrink-0 pt-0.5 font-medium tabular-nums text-blue">{String(i + 1).padStart(2, "0")}</span>
                   <span>{r}</span>
                 </li>
               ))}
@@ -238,16 +197,13 @@ export default async function EventPage({ params }: { params: Promise<Params> })
 
         {d.contacts?.length ? (
           <Block label="Contact" title="Got doubts?" color="green">
-            <ul className="grid gap-4 sm:grid-cols-2">
+            <ul className="grid sm:grid-cols-2">
               {d.contacts.map((c, i) => (
-                <li key={i} className="rounded-2xl border border-dashed border-line p-4">
+                <li key={i} className={cell}>
                   <p className="font-sans text-lg font-bold">{c.name}</p>
                   {c.role && <p className="text-xs uppercase tracking-wide text-muted">{c.role}</p>}
                   {c.phone && (
-                    <a
-                      href={`tel:${c.phone.replace(/[^\d+]/g, "")}`}
-                      className="mt-3 inline-flex items-center gap-2 text-sm text-green hover:underline"
-                    >
+                    <a href={telHref(c.phone)} className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm text-green hover:underline">
                       <Phone aria-hidden className="size-4" /> {c.phone}
                     </a>
                   )}
@@ -257,27 +213,42 @@ export default async function EventPage({ params }: { params: Promise<Params> })
           </Block>
         ) : null}
 
-{next && (
-  <Reveal className="mt-16">
-    <Link
-      href={`/events/${next.slug}`}
-      className="group flex items-center justify-between gap-4 border-y border-dashed border-line px-5 py-6 transition-colors hover:bg-white/[0.03]"
-    >
-      <span>
-        <span className="block text-xs uppercase tracking-wide text-muted">
-          Next event
-        </span>
-        <span className="mt-1 block font-sans text-xl font-bold transition-colors group-hover:text-orange">
-          {next.name}
-        </span>
-      </span>
-      <ExternalLink
-        aria-hidden="true"
-        className="size-5 text-white/50 transition-colors group-hover:text-orange"
-      />
-    </Link>
-  </Reveal>
-)}
+        {/* Register: after the details, so readers can act once they're convinced */}
+        <Reveal className="mt-16">
+          <section
+            aria-labelledby="join-title"
+            className="flex flex-col gap-6 border-y border-dashed border-line px-5 py-8 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div>
+              <p className="text-xs uppercase tracking-wide text-muted">[Join in]</p>
+              <h2 id="join-title" className="mt-2 font-sans text-2xl font-bold sm:text-3xl">
+                Ready for {e.name}?
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-white/70">
+                Registration closes {siteConfig.registration.deadlineLabel}.
+                {event.dateStatus === "tentative" && " Event date is tentative and will be informed."}
+              </p>
+            </div>
+            <div className="sm:min-w-[15rem]">
+              <EventRegisterCta />
+            </div>
+          </section>
+        </Reveal>
+
+        {next && (
+          <Reveal>
+            <Link
+              href={`/events/${next.slug}`}
+              className="group flex min-h-16 items-center justify-between gap-4 border-b border-dashed border-line px-5 py-6 transition-colors hover:bg-white/[0.03]"
+            >
+              <span>
+                <span className="block text-xs uppercase tracking-wide text-muted">Next event</span>
+                <span className="mt-1 block font-sans text-xl font-bold transition-colors group-hover:text-orange">{next.name}</span>
+              </span>
+              <ArrowRight aria-hidden className="size-5 text-white/50 transition-all group-hover:translate-x-1 group-hover:text-orange" />
+            </Link>
+          </Reveal>
+        )}
       </div>
     </main>
   );
