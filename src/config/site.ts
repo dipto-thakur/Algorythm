@@ -29,7 +29,7 @@ subtext: "Hackathons, design battles, quizzes, presentations & culture — all i
       site: "https://www.vivekanandacollegekolkata.in/" as string | null,
     },
     maker: {
-      name: "@diptothakur",
+      name: "diptothakur",
       links: [
         { platform: "github", href: "https://github.com/diptothakur" },
         { platform: "linkedin", href: "https://www.linkedin.com/in/diptothakur" },

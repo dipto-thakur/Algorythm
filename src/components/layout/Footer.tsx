@@ -188,16 +188,12 @@ export function Footer() {
 <div className="mt-10 border-t border-white/[0.08] pt-6 text-white/60 sm:mt-12">
   <div className="flex flex-col-reverse items-center justify-between gap-4 sm:flex-row">
     <div className="flex flex-wrap items-center justify-center gap-x-3 sm:justify-start">
-      <p className="inline-flex items-center gap-1.5 text-xs text-white/40">
-        Made with
-        <Heart
-          aria-label="love"
-          role="img"
-          className="size-3.5 fill-orange text-orange"
-        />
-        by <span className="text-white/60">{maker.name}</span>
+      <p className="inline-flex items-center gap-1 text-xs text-white/40">
+       
+        by <span className="text-white/60">{maker.name}
+        
+        </span>
       </p>
-
       {maker.links.length > 0 && (
         <>
           <span aria-hidden="true" className="h-3 w-px bg-white/15" />
@@ -222,6 +218,7 @@ export function Footer() {
           </ul>
         </>
       )}
+
     </div>
 
     <a
