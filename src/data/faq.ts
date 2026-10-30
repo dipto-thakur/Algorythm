@@ -24,6 +24,12 @@ export const faq: FaqItem[] = [
     question: "Do I need a team, and can I find teammates?",
     answer:
       "Team requirements vary by event. Some allow individual participation, while others require a team. If you need teammates, the organizers may help connect you with potential partners where possible.",
+  }, 
+ {
+    id: "requirements",
+    question: "What should I bring, and do I need a laptop?",
+    answer:
+      "Bring your valid college ID. Laptop and other equipment requirements depend on the event, so check its details or wait for instructions from the organizing team.",
   },
   {
     id: "certificates",
@@ -31,12 +37,7 @@ export const faq: FaqItem[] = [
     answer:
       "Yes, certificates will be provided to participants. Contact the organizing team for details about distribution.",
   },
-  {
-    id: "requirements",
-    question: "What should I bring, and do I need a laptop?",
-    answer:
-      "Bring your valid college ID. Laptop and other equipment requirements depend on the event, so check its details or wait for instructions from the organizing team.",
-  },
+
   {
     id: "registration-changes",
     question: "What if I need to change my registration or withdraw?",

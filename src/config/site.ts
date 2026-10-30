@@ -23,10 +23,18 @@ subtext: "Hackathons, design battles, quizzes, presentations & culture — all i
   tagline: "kya hai ALGORYTHM?",
   description:
     "ALGORYTHM'26 - A Computer Science departmental event - hosting hackathon, design, presentation, quiz and cultural program",
-  college: {
-  name: "VIVEKANANDA COLLEGE",    
-  address: "Thakurpukur, Kolkata", 
-},
+    college: {
+      name: "VIVEKANANDA COLLEGE",
+      address: "Thakurpukur, Kolkata",
+      site: "https://www.vivekanandacollegekolkata.in/" as string | null,
+    },
+    maker: {
+      name: "@diptothakur",
+      links: [
+        { platform: "github", href: "https://github.com/diptothakur" },
+        { platform: "linkedin", href: "https://www.linkedin.com/in/diptothakur" },
+      ] as { platform: "github" | "linkedin"; href: string }[],
+    },
 contact: {
   phone: "+918583096581",    // display format, e.g. "+91 98765 43210"
   whatsapp: "+918583096581", // same format; digits are extracted for the link
@@ -57,7 +65,7 @@ registration: {
 },
 schedule: {
   draftTitle: "Working on it",
-  draftNote: "Date abhi tentative hai, toh schedule bhi. Final hote hi yahin aa jayega. Thoda sabr, phir full dhamaal.",
+  draftNote: "Working day-night to plan best schedule possible. Stay in touch. Final hote hi yahin aa jayega. Thoda sabr, phir full dhamaal.",
 },
   siteUrl: env.siteUrl ?? null,
   cta: { label: "Register now", href: env.registerUrl ?? "/register" },

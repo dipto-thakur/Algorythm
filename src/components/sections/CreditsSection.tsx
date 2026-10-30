@@ -7,7 +7,7 @@ import type { Credit } from "@/types/site";
 
 const columns: { label: string; heading: string; items: readonly Credit[] }[] = [
   { label: "Patron", heading: "patron", items: siteConfig.credits.patrons },
-  { label: "Associations", heading: "associations", items: siteConfig.credits.associations },
+  { label: "Associates", heading: "associations", items: siteConfig.credits.associations },
 ].filter((c) => c.items.length > 0);
 
 export function CreditsSection() {

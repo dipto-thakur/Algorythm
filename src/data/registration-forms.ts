@@ -41,7 +41,6 @@ export const eventForms: Record<string, { intro?: string; fields: Field[] }> = {
         type: "radio",
         label: "Team size",
         required: true,
-        help: "It is suggested to participate with a team, but if you don't have one you can still join solo.",
         options: [1, 2, 3, 4].map((n) => ({ value: String(n), label: String(n) })),
       },
       { name: "leaderName", type: "text", label: "Team leader's name", required: true, prefill: "name" },
@@ -74,7 +73,20 @@ export const eventForms: Record<string, { intro?: string; fields: Field[] }> = {
       },
     ],
   },
-  canvaclash: { fields: [] },
+  canvaclash: {
+    fields: [
+      {
+        name: "laptop",
+        type: "radio",
+        label: "Comfortable with carrying your tab/laptop?",
+        help: "If you don't have Contact us",
+        options: [
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ],
+      },
+    ],
+  },
   technovate: {
     fields: [
       {

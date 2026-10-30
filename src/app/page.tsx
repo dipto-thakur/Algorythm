@@ -7,6 +7,7 @@ import { ScheduleSection } from "@/components/sections/ScheduleSection";
 import { EventsSection } from "@/components/sections/EventsSection";
 import { CreditsSection } from "@/components/sections/CreditsSection";
 import { getRegisteredCount } from "@/lib/registration/count";
+import { AdRow } from "@/components/layout/AdRow";
 
 export const revalidate = 60;
 
@@ -28,6 +29,8 @@ export default async function Home() {
           <div className="section-divider" aria-hidden="true" />
           <FAQSection />
         </div>
+ <AdRow />
+
       </main>
       <Footer />
     </>
