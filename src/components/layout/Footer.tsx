@@ -5,7 +5,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { telHref, waHref } from "@/lib/contact";
 import { FooterCta } from "./FooterCta";
-import { AdRow } from "./AdRow";
 
 const { college, event, contact, footer, maker } = siteConfig;
 const nav = siteConfig.navigation.filter((i): i is { label: string; href: string } => i.href !== null);
@@ -22,33 +21,39 @@ const link =
 const tile =
   "group flex min-h-14 items-center gap-3 rounded-2xl bg-white/[0.06] px-4 py-2 transition-colors hover:bg-white/[0.12] focus-visible:bg-white/[0.12]";
 
-function ContactTile({
-  href,
-  icon,
-  label,
-  value,
-  tone,
-  external,
-}: {
-  href: string;
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  tone: string;
-  external?: boolean;
-}) {
-  return (
-    <a href={href} {...(external && { target: "_blank", rel: "noopener noreferrer" })} className={tile}>
-      <span aria-hidden className={`grid size-10 shrink-0 place-items-center rounded-xl ${tone}`}>
-        {icon}
-      </span>
-      <span className="min-w-0">
-        <span className="block text-xs text-white/60">{label}</span>
-        <span className="block truncate font-sans text-base font-bold">{value}</span>
-      </span>
-    </a>
-  );
-}
+  function ContactTile({
+    href,
+    icon,
+    label,
+    value,
+    external,
+  }: {
+    href: string;
+    icon: React.ReactNode;
+    label: string;
+    value: string;
+    external?: boolean;
+  }) {
+    return (
+      <a
+        href={href}
+        {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+        className="group flex min-w-0 items-center gap-3 py-2.5 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+      >
+        <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-white/[0.06] text-white/70 transition-colors group-hover:bg-white/10">
+          {icon}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-[11px] tracking-wide text-white/45">
+            {label}
+          </span>
+          <span className="block truncate text-sm font-medium text-white/90">
+            {value}
+          </span>
+        </span>
+      </a>
+    );
+  }
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -110,36 +115,44 @@ export function Footer() {
               </nav>
             )}
 
-            {/* Helpline */}
-            {hasContact && (
-              <section aria-labelledby="footer-helpline" className="min-w-0 md:col-span-2 lg:col-span-3">
-                <h2 id="footer-helpline" className={heading}>
-                  [Helpline]
-                </h2>
-                <div className="mt-3 flex flex-col gap-2">
-                  {contact.phone && (
-                    <ContactTile
-                      href={telHref(contact.phone)}
-                      icon={<Phone aria-hidden className="size-4 text-blue" />}
-                      tone="bg-blue/10"
-                      label="Call us"
-                      value={contact.phone}
-                    />
-                  )}
-                  {contact.whatsapp && (
-                    <ContactTile
-                      href={waHref(contact.whatsapp, contact.whatsappMessage)}
-                      icon={<MessageCircle aria-hidden className="size-4 text-green" />}
-                      tone="bg-green/10"
-                      label="WhatsApp"
-                      value={contact.whatsapp}
-                      external
-                    />
-                  )}
-                </div>
-                {contact.hours && <p className="mt-3 text-xs leading-relaxed text-white/50 sm:text-sm">{contact.hours}</p>}
-              </section>
-            )}
+{/* Helpline */}
+{hasContact && (
+  <section
+    aria-labelledby="footer-helpline"
+    className="min-w-0 md:col-span-2 lg:col-span-3"
+  >
+    <h2 id="footer-helpline" className={heading}>
+      HELPLINE
+    </h2>
+
+    <div className="mt-3 divide-y divide-white/[0.08]">
+      {contact.phone && (
+        <ContactTile
+          href={telHref(contact.phone)}
+          icon={<Phone className="size-4" />}
+          label="Phone"
+          value={contact.phone}
+        />
+      )}
+
+      {contact.whatsapp && (
+        <ContactTile
+          href={waHref(contact.whatsapp, contact.whatsappMessage)}
+          icon={<MessageCircle className="size-4" />}
+          label="WhatsApp"
+          value={contact.whatsapp}
+          external
+        />
+      )}
+    </div>
+
+    {contact.hours && (
+      <p className="mt-3 text-xs text-white/40">
+        {contact.hours}
+      </p>
+    )}
+  </section>
+)}
 
             {/* Location */}
             <section aria-labelledby="footer-location" className="min-w-0 md:col-span-2 lg:col-span-3">

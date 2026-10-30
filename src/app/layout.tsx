@@ -6,6 +6,9 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "@/components/layout/Navbar";
 
+import { AdRow } from "@/components/layout/AdRow";
+
+
 const mono = Martian_Mono({ subsets: ["latin"], axes: ["wdth"], variable: "--font-martian", display: "swap" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-grotesk", display: "swap" });
 const pixel = localFont({
@@ -74,7 +77,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </a>
           <Navbar />
           {children}
-        </Providers>
+
+        </Providers> 
       </body>
     </html>
   );

@@ -11,7 +11,9 @@ import { EventRegisterCta } from "@/components/events/EventRegisterCta";
 import { ArrowLeft, ArrowRight, CalendarDays, Download, ExternalLink, FileText, Image as ImageIcon, MapPin, Phone, Timer } from "lucide-react";
 import { telHref } from "@/lib/contact";
 import { cn } from "@/lib/utils";
-
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import { AdRow } from "@/components/layout/AdRow";
 
 type Params = { slug: string };
 
@@ -195,23 +197,35 @@ export default async function EventPage({ params }: { params: Promise<Params> })
           </Block>
         ) : null}
 
-        {d.contacts?.length ? (
-          <Block label="Contact" title="Got doubts?" color="green">
-            <ul className="grid sm:grid-cols-2">
-              {d.contacts.map((c, i) => (
-                <li key={i} className={cell}>
-                  <p className="font-sans text-lg font-bold">{c.name}</p>
-                  {c.role && <p className="text-xs uppercase tracking-wide text-muted">{c.role}</p>}
-                  {c.phone && (
-                    <a href={telHref(c.phone)} className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm text-green hover:underline">
-                      <Phone aria-hidden className="size-4" /> {c.phone}
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </Block>
-        ) : null}
+{d.contacts?.length ? (
+  <Block label="Contact" title="Got doubts?" color="green">
+    <ul className={cn("grid border-l border-t border-dashed border-line", d.contacts.length > 1 && "sm:grid-cols-2")}>
+      {d.contacts.map((c, i) => (
+        <li key={i} className={cn(cell, "flex flex-col justify-between gap-6")}>
+          <div>
+            <p className="flex items-center gap-3 text-xs uppercase tracking-wide text-muted">
+              <span className="tabular-nums text-green">{String(i + 1).padStart(2, "0")}</span>
+              {c.role}
+            </p>
+            <p className="mt-3 font-sans text-xl font-bold leading-tight">{c.name}</p>
+          </div>
+
+          {c.phone && (
+            <a
+              href={telHref(c.phone)}
+              className="group flex min-h-11 items-center justify-between gap-4 border-t border-dashed border-line pt-4 outline-none focus-visible:text-green"
+            >
+              <span className="font-sans text-lg font-bold tabular-nums transition-colors group-hover:text-green">{c.phone}</span>
+              <span className="shrink-0 border-b border-white/25 pb-0.5 text-xs font-semibold uppercase tracking-[0.14em] text-white/70 transition-colors group-hover:border-green group-hover:text-green">
+                Call
+              </span>
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </Block>
+) : null}
 
         {/* Register: after the details, so readers can act once they're convinced */}
         <Reveal className="mt-16">
@@ -247,8 +261,11 @@ export default async function EventPage({ params }: { params: Promise<Params> })
               </span>
               <ArrowRight aria-hidden className="size-5 text-white/50 transition-all group-hover:translate-x-1 group-hover:text-orange" />
             </Link>
+            <AdRow />
           </Reveal>
+          
         )}
+
       </div>
     </main>
   );

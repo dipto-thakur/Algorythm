@@ -42,7 +42,7 @@ export const eventDetails: Record<string, EventDetails> = {
       {
         name: "Shuvam",
         role: "Coordinator",
-        phone: "+91 8240554940",
+        phone: "+918240554940",
       },
     ],
   },
@@ -89,6 +89,11 @@ export const eventDetails: Record<string, EventDetails> = {
         name: "Neha",
         role: "Coordinator",
         phone: "+917003940156",
+      },
+      {
+        name: "Dipto",
+        role: "Coordinator",
+        phone: "+919330681578",
       },
     ],
   },
@@ -218,6 +223,11 @@ export const eventDetails: Record<string, EventDetails> = {
         name: "Snehasish",
         role: "Coordinator",
         phone: "+918583096581",
+      },
+      {
+        name: "Dipto",
+        role: "Coordinator",
+        phone: "+919330681578",
       },
     ],
   },
