@@ -15,7 +15,7 @@ export const eventDetails: Record<string, EventDetails> = {
 
     // poster: "https://drive.google.com/file/d/XXXX/view",
     brochure:
-      "https://drive.google.com/file/d/1v3PM40Q818tAOioJ_B7QLC_842hM2vqF/view?usp=sharing",
+      "https://drive.google.com/file/d/11SjaRgsplALD3OuYrRTvTxHM_7ACgMwk/view?usp=sharing",
 
     team: {
       size: "1–4 members",
@@ -61,7 +61,7 @@ export const eventDetails: Record<string, EventDetails> = {
       "https://chat.whatsapp.com/JwcY3a4MaCW51TPHIstiId?s=cl&p=a&mlu=4&ilr=4&iam=2",
 
     // poster: "https://drive.google.com/file/d/XXXX/view",
-    // brochure: "https://drive.google.com/file/d/XXXX/view",
+    brochure: "https://drive.google.com/file/d/1UPz2c8UZz9alR9r3x0oHWUsQmnFzW-_w/view?usp=sharing",
 
     team: {
       size: "Individual",
@@ -109,7 +109,7 @@ export const eventDetails: Record<string, EventDetails> = {
     whatsappGroup:
       "https://chat.whatsapp.com/DtIvGZYswAl5MkscNkfO1L?s=cl&p=a&mlu=4&ilr=4&iam=2",
 
-    // poster: "",
+    poster: "https://drive.google.com/file/d/1n3u92h4EZOsI34VoQvNYN2qDV2syERbB/view?usp=sharing",
     // brochure: "",
 
     team: {
@@ -138,19 +138,18 @@ export const eventDetails: Record<string, EventDetails> = {
   },
 
   technovate: {
-    tagline: "Think. Innovate. Make an Impact!",
-
+    tagline: "Where Ideas Become Impact",
     about: [
-      "Technovate challenges participants to develop research-based ideas and innovative solutions to real-world problems.",
+      "Technovate challenges participants to develop creative ideas and innovative solutions to real-world problems.",
       "Theme: Your Idea. Your Research. Your Innovation.",
-      "Choose a sample topic which will be provided or propose your own idea.",
+      "Choose a provided topic or propose your own original idea to solve a real-world problem, supported by a 500-word document and a PowerPoint presentation.",
       "Sample topics: Can an email be recalled after sending? Does music improve concentration? Can college festivals eliminate single-use plastic?",
     ],
 
     whatsappGroup:
       "https://chat.whatsapp.com/GPlSg1VK17SKOdB0tqZdIh?s=cl&p=a&mlu=4&ilr=4&iam=2",
 
-    // poster: "https://drive.google.com/file/d/XXXX/view",
+    poster: "https://drive.google.com/file/d/1VoXGIZCX25QaOr3Yr-01VU-dC8qJ0fmw/view?usp=sharing",
     // brochure: "https://drive.google.com/file/d/XXXX/view",
 
     team: {
@@ -166,19 +165,23 @@ export const eventDetails: Record<string, EventDetails> = {
     // prizes: [{ place: "1st", reward: "..." }],
 
     rules: [
-      "Present an original research idea related to the chosen topic.",
-      "Include a clear and scientifically sound explanation.",
-      "Submit a research PDF of up to 500 words.",
+      "Present an original idea that addresses a real-world problem.",
+      "Submit a PDF of up to 500 words with a clear, scientifically sound explanation.",
       "The preliminary submission must include both the PDF and a PowerPoint presentation.",
       "Submission dates will be announced by the organizers.",
-      "Individual and team participation (up to 2 members) are allowed.",
+      "Plagiarism or any form of copied work found during the preliminary round will result in disqualification.",
     ],
 
     contacts: [
       {
-        name: "Ishan Banerjee",
+        name: "Ishan",
         role: "Coordinator",
         phone: "+918446620790",
+      },
+      {
+        name: "Seetal",
+        role: "Coordinator",
+        phone: "+918622063639",
       },
     ],
   },
@@ -188,14 +191,14 @@ export const eventDetails: Record<string, EventDetails> = {
 
     about: [
       "Quiz Stack is a team-based quiz competition featuring multiple rounds that test knowledge, accuracy, speed, and logical reasoning.",
-      "A qualifying round will be held if more than 15 teams register. It will take place after registration closes. it will be notified",
+      "A qualifying round will be held if more than 15 teams register. It will take place after registration closes. Stay notified.",
     ],
 
     whatsappGroup:
       "https://chat.whatsapp.com/GWt3LoSbYwA19dgMVGkolE?s=cl&p=a&mlu=4&ilr=4&iam=2",
 
-    // poster: "https://drive.google.com/file/d/XXXX/view",
-    // brochure: "https://drive.google.com/file/d/XXXX/view",
+    poster: "https://drive.google.com/file/d/18x2g7jf_4TPvJ0pBjPmox65oEcEsDH_t/view?usp=sharing",
+    brochure: "https://drive.google.com/file/d/1Xj1xNVioiC1HuZST62m0w0d4DUtjzoTe/view?usp=sharing",
 
     team: {
       size: "2 members",
