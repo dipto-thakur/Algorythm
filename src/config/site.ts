@@ -42,8 +42,8 @@ contact: {
   hours: null as string | null,    // e.g. "10 AM to 6 PM"
 },
 credits: {
-  patrons: [{ name: "Dr. Bhaskar Mahanayak", subtext: "Principal, Vivekananda College" }] as Credit[],
-  associations: [{ name: "Faculties, Alumini, Students", subtext: "Department of Computer Science" }] as Credit[],
+  patrons: [{ name: "Dr. Bhaskar Mahanayak", subtext: "Principal, Vivekananda College, Thakurpukur" }] as Credit[],
+  associations: [{ name: "Faculty, Alumni & Students", subtext: "Dept. of Computer Science" }] as Credit[],
 },
 event: {
   venue: "VIVEKANANDA COLLEGE, Thakurpukur, Kolkata 700063",

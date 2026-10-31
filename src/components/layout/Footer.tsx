@@ -68,36 +68,46 @@ export function Footer() {
         <div className="p-4 sm:p-7">
           <div className="grid gap-x-8 gap-y-10 md:grid-cols-6 lg:grid-cols-12 lg:gap-x-10">
             {/* Brand */}
-            <div className="flex flex-col gap-4 md:col-span-6 lg:col-span-4">
-              <SmartImage asset={siteAssets.collegeLogo} className="h-12 w-auto self-start" />
-              {college.name &&
-                (college.site ? (
-                  <a
-                    href={college.site}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${college.name} website (opens in new tab)`}
-                    className="group inline-flex items-start gap-1.5 self-start font-sans text-xl font-bold leading-tight transition-colors hover:text-orange focus-visible:text-orange sm:text-2xl"
-                  >
-                    {college.name}
-                    <ArrowUpRight
-                      aria-hidden
-                      className="mt-1 size-4 shrink-0 text-white/50 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-orange"
-                    />
-                  </a>
-                ) : (
-                  <p className="font-sans text-xl font-bold leading-tight sm:text-2xl">{college.name}</p>
-                ))}
-              <p className="text-sm leading-6 text-white/75">
-                <span className="font-bold text-white">{siteConfig.name}</span>
-                <br />
-                {event.dateLabel}
-                {event.dateStatus === "tentative" && <span className="text-orange"> · tentative</span>}
-              </p>
-              <div className="mt-1 max-w-sm">
-                <FooterCta />
-              </div>
-            </div>
+            <div className="flex min-w-0 flex-col gap-3 md:col-span-6 lg:col-span-4">
+  <SmartImage
+    asset={siteAssets.collegeLogo}
+    className="h-10 w-auto self-start sm:h-12"
+  />
+
+  {college.name &&
+    (college.site ? (
+      <a
+        href={college.site}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${college.name} website (opens in new tab)`}
+        className="group inline-flex min-w-0 items-start gap-1 self-start font-sans text-lg font-bold leading-snug transition-colors hover:text-orange focus-visible:text-orange sm:text-2xl"
+      >
+        <span className="min-w-0 [overflow-wrap:anywhere]">{college.name}</span>
+        <ArrowUpRight
+          aria-hidden
+          className="mt-1 size-3.5 shrink-0 text-white/50 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-orange sm:size-4"
+        />
+      </a>
+    ) : (
+      <p className="font-sans text-lg font-bold leading-snug [overflow-wrap:anywhere] sm:text-2xl">
+        {college.name}
+      </p>
+    ))}
+
+  <p className="text-xs leading-relaxed text-white/65 sm:text-sm sm:leading-6">
+    <span className="font-semibold text-white">{siteConfig.name}</span>
+    <span className="mx-1.5 text-white/30">·</span>
+    {event.dateLabel}
+    {event.dateStatus === "tentative" && (
+      <span className="text-orange"> · tentative</span>
+    )}
+  </p>
+
+  <div className="mt-1 w-full max-w-sm">
+    <FooterCta />
+  </div>
+</div>
 
             {/* Explore */}
             {nav.length > 0 && (
